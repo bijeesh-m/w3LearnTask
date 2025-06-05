@@ -1,24 +1,19 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { decrementCount, incrementCount, updateCount } from "../features/counterSlice";
 
 const Counter = () => {
+    const count = useSelector((states) => states.count);
 
+    const [value, setValue] = useState("");
 
-    const [count, setCount] = useState(0);
-    const [value, setValue] = useState(0);
+    const dispatch = useDispatch();
 
     const handleIncrementCount = () => {
-        if (value) {
-            setCount((prev) => prev + value);
-        } else {
-            setCount((prev) => prev + 1);
-        }
+        dispatch(incrementCount());
     };
     const handleDecrementCount = () => {
-        if (value) {
-            setCount((prev) => prev - value);
-        } else {
-            setCount((prev) => prev - 1);
-        }
+        dispatch(decrementCount());
     };
 
     const handleChangeValue = (event) => {
@@ -26,10 +21,8 @@ const Counter = () => {
     };
 
     const handleAddValue = () => {
-        setCount((prev) => prev + value);
+        dispatch(updateCount(value));
     };
-
-    console.log(value);
 
     return (
         <div className=" flex h-screen flex-col p-[100px] gap-2">
